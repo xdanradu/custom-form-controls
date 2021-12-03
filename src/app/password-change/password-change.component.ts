@@ -1,13 +1,11 @@
-import { ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { Renderer2 } from '@angular/core';
+import {ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
 import { Component } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_ASYNC_VALIDATORS, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup,  NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { isValidRegex } from '../validators/is-valid-regex.validator';
 import { passwordRepeat } from '../validators/password-repeat.validator';
-import { ValidationRules } from '../validators/validation-rules.enum';
+import {Password} from '../const/password.enum';
 
 @Component({
   selector: 'password-change',
@@ -27,25 +25,18 @@ import { ValidationRules } from '../validators/validation-rules.enum';
   ]
 })
 export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy, Validator, OnInit {
-  
   form: FormGroup;
-  
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      oldPassword: new FormControl(null, 
+      oldPassword: new FormControl(null,
           [
           Validators.required
         ]
     ),
-      newPassword: new FormControl(
-        { value: null, disabled: true }, [
-        Validators.required,
-        isValidRegex(ValidationRules.AT_LEAST_EIGHT),
-        isValidRegex(ValidationRules.AT_LEAST_ONE_DIGIT),
-        isValidRegex(ValidationRules.LOWER_AND_UPPER_CASE_CHARACTER),
-        isValidRegex(ValidationRules.SPECIAL_CHARACTER)]),
+      newPasswordWrapper: new FormControl(null),
       repeatPassword: new FormControl(
         { value: null, disabled: true }, [
         Validators.required
@@ -54,15 +45,15 @@ export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy,
   }
 
   get oldPassword(): FormControl {
-    return this.form.controls['oldPassword'] as FormControl;
+    return this.form.controls[Password.OLD] as FormControl;
   }
 
-  get newPassword(): FormControl {
-    return this.form.controls['newPassword'] as FormControl;
+  get newPasswordWrapper(): FormControl {
+    return this.form.controls[Password.NEW_WRAPPER] as FormControl;
   }
 
   get repeatPassword(): FormControl {
-    return this.form.controls['repeatPassword'] as FormControl;
+    return this.form.controls[Password.REPEAT] as FormControl;
   }
 
   onTouched: Function = () => {};
@@ -94,19 +85,19 @@ export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy,
   }
 
   validate(control: AbstractControl) {
-    if (!this.form.controls['newPassword'].disabled &&
-      !this.form.controls['repeatPassword'].disabled &&
+    if (!this.form.controls[Password.NEW_WRAPPER].disabled &&
+      !this.form.controls[Password.REPEAT].disabled &&
       this.form.valid) {
       return null;
     }
 
     let errors : any = {};
 
-    errors = this.addControlErrors(errors, "oldPassword");
-    errors = this.addControlErrors(errors, "newPassword");
-    errors = this.addControlErrors(errors, "repeatPassword");
-    if (this.newPassword.disabled) {
-      errors = { ...errors, newPassword: 'disabled' }
+    errors = this.addControlErrors(errors, Password.OLD);
+    errors = this.addControlErrors(errors, Password.NEW_WRAPPER);
+    errors = this.addControlErrors(errors, Password.REPEAT);
+    if (this.newPasswordWrapper.disabled) {
+      errors = { ...errors, newPasswordWrapper: 'disabled' }
     };
     if (this.repeatPassword.disabled) {
       errors = { ...errors, repeatPassword: 'disabled' }
@@ -131,13 +122,13 @@ export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy,
 
   oldPasswordChanged() {
     if (this.oldPassword.value) {
-      this.newPassword.enable();
+      this.newPasswordWrapper.enable();
     }
   }
 
   newPasswordChanged() {
-    if (this.newPassword.value) {
-      this.checkPasswordStrengthAsync(this.newPassword);
+    if (this.newPasswordWrapper.value) {
+      this.checkPasswordStrengthAsync(this.newPasswordWrapper);
     }
   }
 
@@ -147,7 +138,7 @@ export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy,
       check.subscribe((response) => {
         if (!response.isStrong) {
           ctrl.setErrors({ ...ctrl.errors, weakPassword: true });
-          this.form.updateValueAndValidity();  
+          this.form.updateValueAndValidity();
         } else {
           this.repeatPassword.enable();
         }

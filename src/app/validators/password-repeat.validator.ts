@@ -1,12 +1,13 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import {Password} from '../const/password.enum';
 
 export const passwordRepeat: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const newPassword = control.get('newPassword');
-  const repeatPassword = control.get('repeatPassword');
-  if (newPassword &&
+  const newPasswordWrapper = control.get(Password.NEW_WRAPPER);
+  const repeatPassword = control.get(Password.REPEAT);
+  if (newPasswordWrapper && newPasswordWrapper.value &&
     repeatPassword &&
-    newPassword.value !== repeatPassword.value &&
-    newPassword.value !== null && repeatPassword.value !== null
+    newPasswordWrapper.value.newPassword !== repeatPassword.value &&
+    newPasswordWrapper.value.newPassword !== null && repeatPassword.value !== null
     ) {
     repeatPassword.setErrors({ ...repeatPassword.errors, noMatch: true });
   }
