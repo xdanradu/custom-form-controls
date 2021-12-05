@@ -1,16 +1,39 @@
-<div><pre>Pass!123^</pre>
+<div class="error-rules">
   <div
     [ngClass]="{
-    'invalid': touched && errors?.newPasswordDisabled || errors?.lessThanEight,
-    'valid': touched && !errors?.newPasswordDisabled && !errors?.lessThanEight
-    }">Less than eight</div>
+    'valid': !errors?.lessThanEight
+    }">
+    <span *ngIf="!errors?.lessThanEight">&#9989;</span><span *ngIf="errors?.lessThanEight">&#11036;</span>
+    Eight or more
+  </div>
   <div
     [ngClass]="{
-    'invalid': touched && (errors?.newPasswordDisabled || errors?.weakPassword),
-    'valid': touched &&!errors?.newPasswordDisabled && !errors?.weakPassword
-    }">Weak password</div>
+    'valid': !errors?.noDigits
+    }">
+    <span *ngIf="!errors?.noDigits">&#9989;</span><span *ngIf="errors?.noDigits">&#11036;</span>
+    Digit
+  </div>
+  <div
+    [ngClass]="{
+    'valid': !errors?.noSpecialCharacter
+    }">
+    <span *ngIf="!errors?.noSpecialCharacter">&#9989;</span><span *ngIf="errors?.noSpecialCharacter">&#11036;</span>
+    Special character
+  </div>
+  <div
+    [ngClass]="{
+    'valid': !errors?.noLowerAndUpper
+    }">
+    <span *ngIf="!errors?.noLowerAndUpper">&#9989;</span><span *ngIf="errors?.noLowerAndUpper">&#11036;</span>
+    Lower and uppercase
+  </div>
+  <div
+    [ngClass]="{
+    'valid': (!errors && !pending)
+    }">
+    <span *ngIf="(!errors && !pending)">&#9889;</span><span *ngIf="!(!errors && !pending)">&#11036;</span>
+    Strong password
+  </div>
 
 
-
-  <pre>{{errors | json}}</pre>
 </div>

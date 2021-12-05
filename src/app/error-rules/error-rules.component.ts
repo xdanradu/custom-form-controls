@@ -10,6 +10,6 @@ export class ErrorRulesComponent {
   public errors: any;
 
   @Input()
-  touched: boolean;
+  pending: boolean;
 
 }

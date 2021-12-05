@@ -6,9 +6,9 @@ export const passwordRepeat: ValidatorFn = (control: AbstractControl): Validatio
   const repeatPassword = control.get(Password.REPEAT);
   if (newPassword && repeatPassword &&
     newPassword.value !== null && repeatPassword.value !== null &&
-    newPassword.value !== repeatPassword.value
+    newPassword.value === repeatPassword.value
     ) {
-    repeatPassword.setErrors({ ...repeatPassword.errors, noMatch: true });
+    return null;
   }
-  return null;
+  repeatPassword.setErrors({ ...repeatPassword.errors, noMatch: true });
 };

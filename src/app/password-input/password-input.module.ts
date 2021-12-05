@@ -1,4 +1,3 @@
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +5,7 @@ import { PasswordInputComponent } from './password-input.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule

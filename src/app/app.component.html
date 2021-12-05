@@ -1,9 +1,9 @@
 <div [formGroup]="form">
   <password-change formControlName="password"></password-change>
 
-  <h1>Error handling in the parent</h1>
+  <h3>Error handling in the app component</h3>
   <pre>{{password.errors | json}}</pre>
-  <h1>Reading model from the parent</h1>
+  <h3>Reading model from the leaf inside app component</h3>
   <pre>{{password.value?.newPassword | json}}</pre>
 
 </div>
