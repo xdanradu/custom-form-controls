@@ -1,0 +1,26 @@
+<div>
+<span class="field-error"
+      *ngIf="formField?.hasError('noMatch') && formField?.dirty">
+      This value must be the same as the new password.
+    </span>
+<span class="field-error"
+      *ngIf="formField?.hasError('required') && formField?.dirty">
+      This is a required field.
+    </span>
+<span class="field-error"
+      *ngIf="formField?.hasError('noSpecialCharacter') && formField?.dirty">
+      No special character.
+    </span>
+<span class="field-error"
+      *ngIf="formField?.hasError('noDigits') && formField?.dirty">
+      No digits.
+    </span>
+<span class="field-error"
+      *ngIf="formField?.hasError('lessThanEight') && formField?.dirty">
+      Less than eight characters.
+    </span>
+<span class="field-error"
+      *ngIf="formField?.hasError('noLowerAndUpper') && formField?.dirty">
+      No lower and uppercase characters.
+    </span>
+</div>
