@@ -1,9 +1,18 @@
+<div class="copy" (click)="copy()">
+  <button>Copy password: Pass!123^ &#9992;</button>
+  <span class="copied"*ngIf="copied" @myCopyTrigger>
+    Copied to the clipboard the text: <span class="red">Pass!123^</span>
+  </span>
+
+</div>
+
 <div [formGroup]="form">
   <password-change formControlName="password"></password-change>
+</div>
 
-  <h3>Error handling in the app component</h3>
+<div class="messages">
+  <b>Error handling in the app component</b>
   <pre>{{password.errors | json}}</pre>
-  <h3>Reading model from the leaf inside app component</h3>
+  <b>Reading model from the leaf inside app component</b>
   <pre>{{password.value?.newPassword | json}}</pre>
-
 </div>
