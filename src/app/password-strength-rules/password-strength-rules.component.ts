@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'error-rules',
+  selector: 'password-strength-rules',
   templateUrl: './password-strength-rules.component.html',
   styleUrls: ['./password-strength-rules.component.scss']
 })

@@ -53,7 +53,7 @@ export class PasswordChangeComponent implements ControlValueAccessor, OnDestroy,
         Validators.required
       ]),
       newPassword: new FormControl({value: '', disabled: true}, {
-        validators: [Validators.required,
+        validators: [
           Validators.required,
           isValidRegex(ValidationRules.AT_LEAST_EIGHT),
           isValidRegex(ValidationRules.AT_LEAST_ONE_DIGIT),
