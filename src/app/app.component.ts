@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -19,11 +19,9 @@ import {animate, style, transition, trigger} from '@angular/animations';
 export class AppComponent {
   copied = false;
 
-  form = this.fb.group({
+  form = new FormGroup({
     password: new FormControl(null)
   });
-
-  constructor(private fb: FormBuilder) {}
 
   get password(): FormControl {
     const PASSWORD_CONTROL_NAME = 'password';

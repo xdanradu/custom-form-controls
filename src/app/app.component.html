@@ -1,18 +1,28 @@
-<div class="copy" (click)="copy()">
-  <button>Copy password: Pass!123^ &#9992;</button>
-  <span class="copied"*ngIf="copied" @myCopyTrigger>
-    Copied to the clipboard the text: <span class="red">Pass!123^</span>
-  </span>
+<div class="app-container">
+  <div class="left">
+    <div class="messages">
 
-</div>
+      <div class="copied"*ngIf="copied" @myCopyTrigger>
+        Copied <span class="red">Pass!123^</span> to the clipboard.
+      </div>
 
-<div [formGroup]="form">
-  <password-change formControlName="password"></password-change>
-</div>
+      <div class="copy" (click)="copy()">
+        <button>Copy password < Pass!123^ > &#9992;</button>
+      </div>
 
-<div class="messages">
-  <b>[APP Component]</b>> Error handling
-  <pre>{{password.errors | json}}</pre>
-  <b>[App Component]</b> Reading the value from the inner form control
-  <pre>{{password.value?.newPassword | json}}</pre>
+      <b>[APP Component]</b> Error handling
+      <pre *ngIf="password.errors">{{password.errors | json}}</pre>
+      <pre *ngIf="!password.errors">The password change fields are valid &#9989;</pre>
+      <b>[App Component]</b> Inner form control
+      <pre class="form-control-value">{{password.value?.newPassword | json}}</pre>
+    </div>
+  </div>
+
+  <div class="right">
+
+    <div [formGroup]="form">
+      <password-change formControlName="password"></password-change>
+    </div>
+  </div>
+
 </div>
