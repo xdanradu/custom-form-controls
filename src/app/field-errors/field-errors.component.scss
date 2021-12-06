@@ -1,0 +1,16 @@
+:host {
+  .error-rules {
+    width: 800px;
+    background-color: #fafafa;
+    padding:10px;
+    font-size:12px;
+    border: 1px solid #dedede
+  }
+
+  .invalid {
+    color: crimson;
+  }
+  .valid {
+    color: green;
+  }
+}
