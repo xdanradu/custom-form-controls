@@ -1,5 +1,8 @@
 # AngularCustomFormControls
 
+- Angular custom form control validators, async validator
+- Error handling
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.3.
 
 ## Development server

@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorRulesComponent } from './error-rules.component';
+import { PasswordStrengthRulesComponent } from './password-strength-rules.component';
 
 @NgModule({
   imports: [
@@ -10,7 +10,7 @@ import { ErrorRulesComponent } from './error-rules.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ErrorRulesComponent],
-  exports: [ErrorRulesComponent],
+  declarations: [PasswordStrengthRulesComponent],
+  exports: [PasswordStrengthRulesComponent],
 })
-export class ErrorRulesModule {}
+export class PasswordStrengthRulesModule {}
